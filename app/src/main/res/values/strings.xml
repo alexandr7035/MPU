@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MPU</string>
+
+    <string name="all_tracks">Все композиции</string>
+    <string name="playlists">Плейлисты</string>
+    <string name="settings">Настройки</string>
 </resources>

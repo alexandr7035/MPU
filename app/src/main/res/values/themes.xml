@@ -13,5 +13,8 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
+        <item name="custom_colorPrimaryButton">@color/orange_500</item>
+        <item name="custom_colorPrimaryButtonPressed">@color/orange_600</item>
+
     </style>
 </resources>
