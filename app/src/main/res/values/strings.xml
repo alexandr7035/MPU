@@ -4,4 +4,6 @@
     <string name="all_tracks">Все композиции</string>
     <string name="playlists">Плейлисты</string>
     <string name="settings">Настройки</string>
+    <string name="menu_search">Поиск</string>
+    <string name="search_hint">Поиск</string>
 </resources>

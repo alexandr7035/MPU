@@ -20,6 +20,9 @@ class SongsAdapter: Adapter<SongsAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun getItems(): List<AudioModel> {
+        return this.items
+    }
 
     override fun getItemCount(): Int {
         return items.size
@@ -37,7 +40,6 @@ class SongsAdapter: Adapter<SongsAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d(LOG_TAG, "on bind")
         holder.songTitle.text = items[position].title
         holder.artistName.text = items[position].artist
     }
