@@ -2,22 +2,28 @@ package com.alexandr7035.mpu
 
 import android.app.Service
 import android.content.Intent
+import android.media.AudioManager
 import android.media.MediaPlayer
+import android.os.Binder
 import android.os.IBinder
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 
 
-
-
-private const val ACTION_PLAY: String = "com.example.action.PLAY"
-
 class MusicPlayerService: Service(), MediaPlayer.OnPreparedListener {
 
     private lateinit var player: MediaPlayer
     private var isPlayerReady = false
     private val LOG_TAG = "DEBUG_TAG"
+
+    private val ACTION_STRING = "ACTION"
+
+    val ACTION_PLAY: String = "PLAY"
+    val ACTION_PAUSE: String = "PAUSE"
+
+    // Binder given to clients
+    private val iBinder: IBinder = LocalBinder()
 
     override fun onCreate() {
 
@@ -28,13 +34,11 @@ class MusicPlayerService: Service(), MediaPlayer.OnPreparedListener {
     }
 
     override fun onBind(intent: Intent): IBinder {
-        TODO("Not yet implemented")
+        return iBinder
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
-        player.isLooping = true
-        player.start()
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show()
         return START_STICKY
     }
@@ -45,4 +49,14 @@ class MusicPlayerService: Service(), MediaPlayer.OnPreparedListener {
     }
 
 
+    inner class LocalBinder : Binder() {
+        fun getService(): MusicPlayerService {
+            return this@MusicPlayerService
+        }
+    }
+
+
+    fun getServiceStatus(): String {
+        return "OK"
+    }
 }
