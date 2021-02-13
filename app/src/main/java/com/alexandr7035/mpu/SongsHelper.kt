@@ -1,10 +1,12 @@
 package com.alexandr7035.mpu
 
+import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
+
 
 class SongsHelper {
 
@@ -39,7 +41,9 @@ class SongsHelper {
                     val artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
                     val duration = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
 
-                    val track = AudioModel(id, title, artist, duration)
+                    val uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id)
+
+                    val track = AudioModel(id, title, artist, duration, uri)
 
                     audioList.add(track)
                 }

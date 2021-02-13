@@ -79,4 +79,11 @@ class MusicPlayerService: Service(), MediaPlayer.OnPreparedListener {
         player.stop()
         playerStatus = false
     }
+
+
+    fun setCurrentSong(uri: Uri) {
+        currentSongUri = uri
+        stopPlaying()
+        startPlaying()
+    }
 }
