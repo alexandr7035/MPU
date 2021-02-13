@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, MusicPlayerService::class.java)
         intent.putExtra(ACTION_STRING, "PLAY")
-        startService(Intent(this, MusicPlayerService::class.java))
         bindService(intent, serviceConnection, BIND_AUTO_CREATE)
     }
 
@@ -45,7 +45,16 @@ class MainActivity : AppCompatActivity() {
 
 
     fun playBtn(v: View) {
-        Log.d(LOG_TAG, musicService.getServiceStatus())
+        
+        if (musicService.checkIfMusicIsPlayed()) {
+            musicService.stopPlaying()
+            playBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_play))
+        }
+        else {
+            musicService.startPlaying()
+            playBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_pause))
+        }
+
     }
 
 

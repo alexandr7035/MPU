@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Binder
 import android.os.IBinder
 import android.provider.Settings
@@ -22,6 +23,10 @@ class MusicPlayerService: Service(), MediaPlayer.OnPreparedListener {
     val ACTION_PLAY: String = "PLAY"
     val ACTION_PAUSE: String = "PAUSE"
 
+    private var playerStatus: Boolean = false
+
+    private lateinit var currentSongUri: Uri
+
     // Binder given to clients
     private val iBinder: IBinder = LocalBinder()
 
@@ -29,8 +34,10 @@ class MusicPlayerService: Service(), MediaPlayer.OnPreparedListener {
 
         Log.d(LOG_TAG, "service created")
 
-        player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI)
-        player.setOnPreparedListener(this);
+        currentSongUri = Settings.System.DEFAULT_RINGTONE_URI
+
+        player = MediaPlayer.create(this, currentSongUri)
+        player.setOnPreparedListener(this)
     }
 
     override fun onBind(intent: Intent): IBinder {
@@ -55,8 +62,21 @@ class MusicPlayerService: Service(), MediaPlayer.OnPreparedListener {
         }
     }
 
+    fun checkIfMusicIsPlayed(): Boolean {
+        return playerStatus
+    }
 
-    fun getServiceStatus(): String {
-        return "OK"
+
+    fun startPlaying() {
+        player.reset()
+        player.setDataSource(this, currentSongUri)
+        player.prepare()
+        player.start()
+        playerStatus = true
+    }
+
+    fun stopPlaying() {
+        player.stop()
+        playerStatus = false
     }
 }
