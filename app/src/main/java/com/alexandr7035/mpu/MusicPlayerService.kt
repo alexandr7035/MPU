@@ -68,18 +68,24 @@ class MusicPlayerService: Service(), MediaPlayer.OnPreparedListener {
 
 
     fun startPlaying() {
-        player.reset()
-        player.setDataSource(this, currentSongUri)
-        player.prepare()
         player.start()
         playerStatus = true
     }
 
     fun stopPlaying() {
         player.stop()
+
+        player.reset()
+        player.setDataSource(this, currentSongUri)
+        player.prepare()
+
         playerStatus = false
     }
 
+    fun pausePlaying() {
+        player.pause()
+        playerStatus = false
+    }
 
     fun setCurrentSong(uri: Uri) {
         currentSongUri = uri

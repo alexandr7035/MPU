@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     fun playBtn(v: View) {
         
         if (musicService.checkIfMusicIsPlayed()) {
-            musicService.stopPlaying()
+            musicService.pausePlaying()
             playBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_play))
         }
         else {
