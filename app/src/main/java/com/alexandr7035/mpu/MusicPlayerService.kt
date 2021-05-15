@@ -91,5 +91,15 @@ class MusicPlayerService: Service(), MediaPlayer.OnPreparedListener {
         currentSongUri = uri
         stopPlaying()
         startPlaying()
+
+        Log.d(LOG_TAG, "${player.currentPosition} of ${player.duration})")
+    }
+
+    fun getCurrentTrackDuration(): Int {
+        return player.duration
+    }
+
+    fun getCurrentTrackPosition(): Int {
+        return player.duration
     }
 }
